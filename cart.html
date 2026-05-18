@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Carrito de compras -- BALENCIAGA VOID. Revisa tus items seleccionados, modifica cantidades y procesa tu pedido.">
+  <meta name="theme-color" content="#000000">
+  <title>Carrito -- BALENCIAGA VOID</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+       ============================================================ -->
+  <header class="bv-navbar">
+    <nav class="container-fluid d-flex align-items-center justify-content-between" aria-label="Navegacion principal">
+      <a class="bv-logo" href="index.html">BALENCIAGA VOID</a>
+      <ul class="bv-nav-links d-none d-md-flex list-unstyled m-0">
+        <li><a href="index.html">INICIO</a></li>
+        <li><a href="cart.html" class="active">CARRITO <span class="badge bv-badge cart-count-badge">0</span></a></li>
+        <li><a href="index.html#contacto">CONTACTO</a></li>
+        <li><button id="themeToggle" class="btn-theme-toggle"><img src="diseno/boton-dia.png" alt="Toggle Theme"></button></li>
+      </ul>
+      <button class="bv-hamburger d-md-none" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <!-- Menu mobile -->
+    <div class="bv-mobile-menu" id="mobileMenu" aria-hidden="true">
+      <ul class="list-unstyled">
+        <li><a href="index.html">INICIO</a></li>
+        <li><a href="cart.html" class="active">CARRITO <span class="badge bv-badge cart-count-badge">0</span></a></li>
+        <li><a href="index.html#contacto">CONTACTO</a></li>
+        <li><button id="themeToggleMobile" class="btn-theme-toggle w-100 mt-2"><img src="diseno/boton-dia.png" alt="Toggle Theme"></button></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       CONTENIDO PRINCIPAL -- Carrito de compras
+       ============================================================ -->
+  <main>
+    <!-- Encabezado del carrito -->
+    <div class="bv-container py-5">
+      <h1 class="bv-section-title">CARRITO</h1>
+      <p id="cartItemCount" class="text-muted">0 PIEZAS SELECCIONADAS</p>
+    </div>
+
+    <div class="bv-divider-full"></div>
+
+    <!-- Seccion de items y resumen -->
+    <section class="bv-container py-5">
+      <div class="row g-4">
+        <!-- Columna de items -->
+        <div class="col-lg-8">
+          <!-- Items del carrito renderizados por JS -->
+          <div id="cartItems" class="bv-cart-items"></div>
+
+          <!-- Estado vacio -->
+          <div id="cartEmpty" class="text-center py-5" style="display: none;">
+            <p style="font-size: 3rem; color: var(--text-secondary);">&#8709;</p>
+            <h2 class="bv-section-title" style="font-size: 1.5rem;">CARRITO VACIO</h2>
+            <p class="text-muted mb-4">Agrega prendas desde la coleccion.</p>
+            <a href="index.html" class="btn btn-dark">EXPLORAR COLECCION</a>
+          </div>
+
+          <!-- Acciones del carrito -->
+          <div id="cartActions" class="d-flex gap-2 mt-4" style="display: none;">
+            <a href="index.html" class="btn btn-outline-dark flex-grow-1">SEGUIR COMPRANDO</a>
+            <button id="btnLimpiarCarrito" class="btn btn-danger">VACIAR CARRITO</button>
+          </div>
+        </div>
+
+        <!-- Columna de resumen del pedido -->
+        <div class="col-lg-4">
+          <div id="orderSummary" class="card border-0" style="display: none;">
+            <div class="card-body">
+              <h5 class="card-title mb-3">RESUMEN DEL PEDIDO</h5>
+              <div class="mb-3 pb-3 border-bottom">
+                <div class="d-flex justify-content-between mb-2">
+                  <span>SUBTOTAL</span>
+                  <span id="subtotalMonto">$0</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>ENVIO</span>
+                  <span>GRATIS</span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between fs-5 fw-bold mb-3">
+                <span>TOTAL</span>
+                <span id="totalMonto">$0</span>
+              </div>
+              <button id="btnPagar" class="btn btn-dark w-100 mb-2">FINALIZAR COMPRA</button>
+              <p class="text-muted small text-center">IVA INCLUIDO -- PRECIOS EN CLP</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="bv-footer">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+      <span class="bv-footer-logo">BALENCIAGA VOID</span>
+      <span class="bv-footer-copy">2026 BALENCIAGA VOID. TODOS LOS DERECHOS RESERVADOS.</span>
+      <span class="bv-footer-tagline">SS 2026 -- CONCEPT BOUTIQUE</span>
+    </div>
+  </footer>
+
+  <!-- Toast container -->
+  <div class="bv-toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="js/theme-toggle.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
